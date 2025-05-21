@@ -3,309 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>腾讯控股2023年财报可视化</title>
-    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"></script>
-    <script src="https://cdn.jsdelivr.net/npm/framer-motion@6.4.0/dist/framer-motion.umd.js"></script>
+    <title>腾讯控股2023年度财报可视化</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/framer-motion@9.0.2/dist/framer-motion.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #E31937;
-            --dark-bg: #000000;
-            --light-text: #ffffff;
-            --secondary-text: #b0b0b0;
-        }
-        
-        body {
-            background-color: var(--dark-bg);
-            color: var(--light-text);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        }
-        
-        .card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(227, 25, 55, 0.3);
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(227, 25, 55, 0.2);
-        }
-        
-        .data-gradient {
-            background: linear-gradient(135deg, var(--primary-color), transparent);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background-color: var(--primary-color);
-        }
-        
-        .number-animation {
-            font-size: 3rem;
-            font-weight: 700;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .highlight-bg {
-            background: linear-gradient(135deg, rgba(227, 25, 55, 0.1), transparent);
-            padding: 1rem;
-            border-radius: 12px;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease forwards;
-        }
-        
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-    </style>
 </head>
-<body class="bg-black text-white">
-    <header class="py-12 text-center">
-        <h1 class="section-title">腾讯控股2023年财报可视化</h1>
-        <p class="text-secondary-text mt-4">展示了腾讯在2023年的业绩表现与关键财务指标</p>
-    </header>
+<body class="bg-black min-h-screen font-sans">
+<div class="container mx-auto px-4 py-20">
+    <!-- 标题 -->
+    <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        class="mb-20 text-center">
+        <h1 class="text-[#E31937] text-5xl font-bold mb-4">腾讯控股2023年度财报</h1>
+        <p class="text-gray-300 text-xl">高质量增长与创新突破</p>
+    </motion.div>
 
-    <main class="container max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- 关键数据卡片 -->
-        <section class="card bg-gradient-to-b from-black to-gray-800 p-6 fade-in">
-            <h2 class="text-xl font-semibold mb-4">关键财务指标</h2>
-            <div class="flex flex-col gap-6">
-                <div class="flex justify-between items-center">
-                    <span class="text-secondary-text">总收入</span>
-                    <span class="number-animation text-primary-color">6,090亿元</span>
+    <!-- Bento Grid 布局 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <!-- 财务概览 -->
+        <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            class="md:col-span-2 bg-gradient-to-br from-[#E31937]/20 to-transparent p-8 rounded-3xl border border-[#E31937]/30">
+            <i class="fas fa-chart-line text-4xl text-[#E31937] mb-6"></i>
+            <h2 class="text-white text-3xl font-bold mb-4">财务核心指标</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <p class="text-gray-400">总收入</p>
+                    <p class="text-[#E31937] text-4xl font-bold">6,090亿<span class="text-white text-2xl ml-2">+10%</span></p>
                 </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-secondary-text">毛利</span>
-                    <span class="number-animation">2,931亿元</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-secondary-text">净利润</span>
-                    <span class="number-animation">1,617亿元</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-secondary-text">同比增长</span>
-                    <span class="text-primary-color">+23%</span>
+                <div>
+                    <p class="text-gray-400">净利润</p>
+                    <p class="text-[#E31937] text-4xl font-bold">1,577亿<span class="text-white text-2xl ml-2">+36%</span></p>
                 </div>
             </div>
-        </section>
+        </motion.div>
 
-        <!-- 收入构成 -->
-        <section class="card p-6 fade-in delay-1">
-            <h2 class="text-xl font-semibold mb-4">收入构成</h2>
-            <div class="flex flex-col gap-4">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-chart-line text-primary-color"></i>
-                        <span>增值服务</span>
-                    </div>
-                    <span class="number-animation">298,375百万元</span>
+        <!-- 股东回报 -->
+        <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            class="bg-black p-8 rounded-3xl border border-[#E31937]/30">
+            <i class="fas fa-hand-holding-usd text-4xl text-[#E31937] mb-6"></i>
+            <h2 class="text-white text-3xl font-bold mb-4">股东回报</h2>
+            <div class="space-y-4">
+                <div>
+                    <p class="text-[#E31937] text-2xl font-bold">42%</p>
+                    <p class="text-gray-400">股息增长率</p>
                 </div>
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-ad text-primary-color"></i>
-                        <span>网络广告</span>
-                    </div>
-                    <span class="number-animation">101,482百万元</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-credit-card text-primary-color"></i>
-                        <span>金融科技及企业服务</span>
-                    </div>
-                    <span class="number-animation">203,763百万元</span>
+                <div>
+                    <p class="text-[#E31937] text-2xl font-bold">1,000亿+</p>
+                    <p class="text-gray-400">港元回购计划</p>
                 </div>
             </div>
-        </section>
+        </motion.div>
 
         <!-- 业务亮点 -->
-        <section class="card p-6 fade-in delay-2">
-            <h2 class="text-xl font-semibold mb-4">业务亮点</h2>
-            <ul class="list-disc pl-6 space-y-3">
-                <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-primary-color"></i>
-                    视频号总用户使用时长翻番，日活跃账户数和人均使用时长显著增长
-                </li>
-                <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-primary-color"></i>
-                    国际市场游戏收入占比达30%，创历史新高
-                </li>
-                <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-primary-color"></i>
-                    腾讯混元成为领先的基础模型，性能卓越
-                </li>
-                <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-primary-color"></i>
-                    数字公益平台99公益日活动创下38亿元公众捐款记录
-                </li>
-            </ul>
-        </section>
-
-        <!-- 季度表现 -->
-        <section class="card p-6 fade-in delay-3">
-            <h2 class="text-xl font-semibold mb-4">第四季度表现</h2>
-            <div class="flex flex-col gap-4">
-                <div class="flex justify-between items-center">
-                    <span class="text-secondary-text">季度总收入</span>
-                    <span class="number-animation">1,552亿元</span>
+        <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            class="md:col-span-3 bg-gradient-to-tr from-[#E31937]/20 to-transparent p-8 rounded-3xl border border-[#E31937]/30">
+            <h2 class="text-white text-3xl font-bold mb-6"><i class="fas fa-rocket text-[#E31937] mr-4"></i>业务突破</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <p class="text-[#E31937] text-2xl font-bold">2X</p>
+                    <p class="text-gray-400">视频号使用时长</p>
                 </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-secondary-text">季度毛利</span>
-                    <span class="number-animation">776亿元</span>
+                <div>
+                    <p class="text-[#E31937] text-2xl font-bold">50%+</p>
+                    <p class="text-gray-400">小游戏流水增长</p>
                 </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-secondary-text">季度净利润</span>
-                    <span class="number-animation">438亿元</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-secondary-text">同比增长</span>
-                    <span class="text-primary-color">+25%</span>
+                <div>
+                    <p class="text-[#E31937] text-2xl font-bold">30%</p>
+                    <p class="text-gray-400">海外游戏占比</p>
                 </div>
             </div>
-        </section>
+        </motion.div>
 
-        <!-- 资本回报计划 -->
-        <section class="card p-6 fade-in">
-            <h2 class="text-xl font-semibold mb-4">资本回报计划</h2>
-            <div class="highlight-bg mb-4">
-                <p class="text-center text-xl font-semibold">2024年股份回购计划规模至少翻倍，至1,000亿港元以上</p>
-            </div>
-            <ul class="list-disc pl-6 space-y-3">
-                <li>年度每股分红增长42%</li>
-                <li>计划2024年股份回购规模超1,000亿港元</li>
-                <li>2023年回购约490亿港元</li>
-            </ul>
-        </section>
-
-        <!-- 环境、社会及治理进展 -->
-        <section class="card p-6 fade-in delay-1">
-            <h2 class="text-xl font-semibold mb-4">ESG进展</h2>
-            <div class="flex flex-col gap-4">
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-leaf text-primary-color"></i>
-                    <span>腾讯数字公益平台99公益日活动创38亿元捐款记录</span>
+        <!-- 技术生态 -->
+        <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            class="md:col-span-2 p-8 rounded-3xl border border-[#E31937]/30">
+            <i class="fas fa-brain text-4xl text-[#E31937] mb-6"></i>
+            <h2 class="text-white text-3xl font-bold mb-4">技术突破</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <p class="text-[#E31937] text-2xl font-bold">万亿级</p>
+                    <p class="text-gray-400">混元大模型参数</p>
                 </div>
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-user-graduate text-primary-color"></i>
-                    <span>新基石研究员项目支持104位科学家</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-temperature-low text-primary-color"></i>
-                    <span>应用第四代数据中心技术减少碳排放</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-globe text-primary-color"></i>
-                    <span>加入联合国全球契约组织，支持可持续发展目标</span>
+                <div>
+                    <p class="text-[#E31937] text-2xl font-bold">38亿</p>
+                    <p class="text-gray-400">公益日捐款额</p>
                 </div>
             </div>
-        </section>
+        </motion.div>
 
-        <!-- 利润表现 -->
-        <section class="card p-6 fade-in delay-2">
-            <h2 class="text-xl font-semibold mb-4">利润率表现</h2>
-            <div class="flex flex-col gap-4">
-                <div class="flex justify-between items-center">
-                    <span class="text-secondary-text">经营利润率</span>
-                    <span class="text-primary-color">32%</span>
+        <!-- 用户数据 -->
+        <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            class="p-8 rounded-3xl border border-[#E31937]/30">
+            <i class="fas fa-users text-4xl text-[#E31937] mb-6"></i>
+            <h2 class="text-white text-3xl font-bold mb-4">生态规模</h2>
+            <div class="space-y-4">
+                <div>
+                    <p class="text-[#E31937] text-2xl font-bold">13.43亿</p>
+                    <p class="text-gray-400">微信月活</p>
                 </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-secondary-text">净利润率</span>
-                    <span class="text-primary-color">27%</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-secondary-text">同比增长</span>
-                    <span class="text-primary-color">+5%</span>
+                <div>
+                    <p class="text-[#E31937] text-2xl font-bold">2.48亿</p>
+                    <p class="text-gray-400">付费用户</p>
                 </div>
             </div>
-        </section>
-    </main>
+        </motion.div>
+    </div>
+</div>
 
-    <footer class="py-12 text-center text-secondary-text mt-16">
-        <p>数据来源：腾讯控股2023年财报</p>
-        <p class="mt-2">© 2024 腾讯控股有限公司</p>
-    </footer>
-
-    <script>
-        // 动画效果
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.card').forEach(card => {
-                observer.observe(card);
-            });
+<script>
+    // 初始化Framer Motion
+    const { motion } = window.framerMotion;
+    
+    // 自动为所有motion组件添加滚动动画
+    document.querySelectorAll('motion-div').forEach(el => {
+        Object.assign(el.style, {
+            opacity: 0,
+            transform: 'translateY(50px)'
         });
-    </script>
+    });
+</script>
 </body>
 </html>
-```以上是腾讯控股2023年财报的可视化实现代码，这份代码实现了：
-
-1. **页面结构布局**：
-   - 页面使用了HTML5构建基础结构，并遵循了语义化标签的使用，包含`<header>`，`<main>`，和`<footer>`。
-   - 主体页面通过一个网格布局（Grid）展示多个信息卡片（卡片），便于用户查看不同的数据。
-
-2. **视觉设计**：
-   - 使用TailwindCSS和定制的CSS样式来实现响应式布局和现代化的视觉效果。
-   - 页面主题以黑色为背景，特斯拉红作为高亮色，增加了视觉吸引力。
-   - 使用了透明度渐变和简单的动画过渡来增强视觉效果。
-
-3. **数据展示与动画效果**：
-   - 通过`Framer Motion`和`IntersectionObserver`实现滚动时的淡入和向上浮现效果。
-   - 每个数据项都放置在卡片中，卡片采用悬浮效果和微小阴影，使得页面显得更加立体和互动。
-   - 使用动画来增强数字的展示效果，使数字在进入视口时逐步显现。
-
-4. **图标与视觉元素**：
-   - Font Awesome提供简洁的图标，点缀于文本旁边增加可读性和信息的直观性。
-   - 卡片内部分包含了一些关于腾讯控股2023年财务数据的关键信息，如总收入、毛利和净利润等。
-
-5. **优化与限制**：
-   - 代码采用了简洁的CSS Class组合，避免过多的嵌套，易于阅读和维护。
-   - 通过CDN引入所需的JavaScript库，尽量减少了下载的资源体积，加快页面加载速度。
-
-**优点**：
-- 可视化效果良好，信息展示直观，并且动效丰富，给用户带来了更好的体验。
-- 使用了现代的前端技术栈，符合主流的开发惯例。
-
-**缺点**：
-- 页面的交互体验相对简单，可以考虑增加更多的交互元素，例如鼠标悬停时的进一步动画。
-- 动态数据展示中没有使用JavaScript动态计算或渲染，可能需要在实际应用中增加这部分功能。
-
-该实现充分展示了如何利用现代前端技术栈来创建一个视觉效果良好且易于维护的网页。
