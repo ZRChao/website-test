@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>腾讯2023年财报可视化</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com "></script>
+  <!-- Framer Motion CDN -->
+  <script src="https://unpkg.com/framer-motion @^4/dist/es/index.js"></script>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css " integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKUk9MZ8+6eQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background-color: #000;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .highlight {
+      color: #E31937;
+    }
+    .gradient-bg {
+      background: linear-gradient(to right, #E31937, transparent);
+    }
+  </style>
+</head>
+<body class="p-6 md:p-12">
+  <div id="app"></div>
+
+  <script type="module">
+    const { h, render } = window.preact;
+    const { motion, AnimatePresence, useAnimation } = window['framer-motion'];
+
+    const Card = ({ title, value, icon, description, delay }) => (
+      <motion.div
+        className="bg-black border border-[#E31937] p-6 rounded-lg shadow-md flex flex-col"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay }}
+      >
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl text-white font-bold">{title}</h2>
+          <i className={`fa ${icon} fa-lg highlight`}></i>
+        </div>
+        <div className="text-4xl font-extrabold text-white mb-2">{value}</div>
+        <p className="text-sm text-gray-400">{description}</p>
+      </motion.div>
+    );
+
+    const SectionTitle = ({ text }) => (
+      <motion.h1
+        className="text-4xl md:text-5xl font-extrabold text-highlight highlight mb-8"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2 }}
+      >
+        {text}
+      </motion.h1>
+    );
+
+    const App = () => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <SectionTitle text="腾讯控股2023年财报概览" />
+
+        <Card title="总收入" value="6,090亿元" icon="fa-yen-sign" description="同比增长10%" delay={0.2} />
+        <Card title="毛利" value="2,931亿元" icon="fa-coins" description="同比增长23%" delay={0.4} />
+        <Card title="净利润" value="1,180亿元" icon="fa-sack-dollar" description="同比减少37% (IFRS)" delay={0.6} />
+        <Card title="非IFRS净利" value="1,617亿元" icon="fa-money-check-alt" description="同比增长36%" delay={0.8} />
+        <Card title="每股盈利" value="16.68元" icon="fa-chart-line" description="同比增长36%" delay={1.0} />
+        <Card title="广告收入增长" value="21%" icon="fa-bullhorn" description="第四季网络广告业务" delay={1.2} />
+        <Card title="视频号用户时长" value="翻倍" icon="fa-video" description="推荐算法优化驱动" delay={1.4} />
+        <Card title="小游戏流水" value="增长超50%" icon="fa-gamepad" description="中国领先休闲平台" delay={1.6} />
+        <Card title="股份回购计划" value="1,000亿港元" icon="fa-hand-holding-usd" description="2024年规模翻倍" delay={1.8} />
+        <Card title="公益捐款" value="38亿元" icon="fa-heart" description="99公益日纪录" delay={2.0} />
+        <Card title="AI模型进展" value="混元大模型" icon="fa-brain" description="万亿参数规模" delay={2.2} />
+        <Card title="国际游戏占比" value="30%" icon="fa-globe-asia" description="国际市场表现强劲" delay={2.4} />
+      </div>
+    );
+
+    const root = document.getElementById('app');
+    render(<App />, root);
+  </script>
+</body>
+</html>
