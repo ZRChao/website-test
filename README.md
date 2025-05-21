@@ -1,5 +1,7 @@
 # 提示词：
 
+https://mp.weixin.qq.com/s/P7gPN_3SE0vDFgbq4vmrAQ
+
 ## task
 把附件的腾讯控股的财报做成符合以下规则的可视化报表
 
