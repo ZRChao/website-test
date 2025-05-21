@@ -1,142 +1,94 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>腾讯控股2023年度财报可视化</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/framer-motion@9.0.2/dist/framer-motion.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Framer Motion CDN -->
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.umd.js"></script>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #000000;
+      color: white;
+    }
+
+    .highlight {
+      color: #E31937;
+    }
+  </style>
+  <title>腾讯控股财报可视化报表</title>
 </head>
-<body class="bg-black min-h-screen font-sans">
-<div class="container mx-auto px-4 py-20">
-    <!-- 标题 -->
-    <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        class="mb-20 text-center">
-        <h1 class="text-[#E31937] text-5xl font-bold mb-4">腾讯控股2023年度财报</h1>
-        <p class="text-gray-300 text-xl">高质量增长与创新突破</p>
-    </motion.div>
 
-    <!-- Bento Grid 布局 -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        <!-- 财务概览 -->
-        <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            class="md:col-span-2 bg-gradient-to-br from-[#E31937]/20 to-transparent p-8 rounded-3xl border border-[#E31937]/30">
-            <i class="fas fa-chart-line text-4xl text-[#E31937] mb-6"></i>
-            <h2 class="text-white text-3xl font-bold mb-4">财务核心指标</h2>
-            <div class="grid grid-cols-2 gap-6">
-                <div>
-                    <p class="text-gray-400">总收入</p>
-                    <p class="text-[#E31937] text-4xl font-bold">6,090亿<span class="text-white text-2xl ml-2">+10%</span></p>
-                </div>
-                <div>
-                    <p class="text-gray-400">净利润</p>
-                    <p class="text-[#E31937] text-4xl font-bold">1,577亿<span class="text-white text-2xl ml-2">+36%</span></p>
-                </div>
-            </div>
-        </motion.div>
+<body>
+  <!-- 大标题 -->
+  <div class="text-center py-10">
+    <h1 class="text-5xl font-bold highlight">腾讯控股财报可视化报表</h1>
+  </div>
 
-        <!-- 股东回报 -->
-        <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            class="bg-black p-8 rounded-3xl border border-[#E31937]/30">
-            <i class="fas fa-hand-holding-usd text-4xl text-[#E31937] mb-6"></i>
-            <h2 class="text-white text-3xl font-bold mb-4">股东回报</h2>
-            <div class="space-y-4">
-                <div>
-                    <p class="text-[#E31937] text-2xl font-bold">42%</p>
-                    <p class="text-gray-400">股息增长率</p>
-                </div>
-                <div>
-                    <p class="text-[#E31937] text-2xl font-bold">1,000亿+</p>
-                    <p class="text-gray-400">港元回购计划</p>
-                </div>
-            </div>
-        </motion.div>
-
-        <!-- 业务亮点 -->
-        <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            class="md:col-span-3 bg-gradient-to-tr from-[#E31937]/20 to-transparent p-8 rounded-3xl border border-[#E31937]/30">
-            <h2 class="text-white text-3xl font-bold mb-6"><i class="fas fa-rocket text-[#E31937] mr-4"></i>业务突破</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div>
-                    <p class="text-[#E31937] text-2xl font-bold">2X</p>
-                    <p class="text-gray-400">视频号使用时长</p>
-                </div>
-                <div>
-                    <p class="text-[#E31937] text-2xl font-bold">50%+</p>
-                    <p class="text-gray-400">小游戏流水增长</p>
-                </div>
-                <div>
-                    <p class="text-[#E31937] text-2xl font-bold">30%</p>
-                    <p class="text-gray-400">海外游戏占比</p>
-                </div>
-            </div>
-        </motion.div>
-
-        <!-- 技术生态 -->
-        <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            class="md:col-span-2 p-8 rounded-3xl border border-[#E31937]/30">
-            <i class="fas fa-brain text-4xl text-[#E31937] mb-6"></i>
-            <h2 class="text-white text-3xl font-bold mb-4">技术突破</h2>
-            <div class="grid grid-cols-2 gap-6">
-                <div>
-                    <p class="text-[#E31937] text-2xl font-bold">万亿级</p>
-                    <p class="text-gray-400">混元大模型参数</p>
-                </div>
-                <div>
-                    <p class="text-[#E31937] text-2xl font-bold">38亿</p>
-                    <p class="text-gray-400">公益日捐款额</p>
-                </div>
-            </div>
-        </motion.div>
-
-        <!-- 用户数据 -->
-        <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            class="p-8 rounded-3xl border border-[#E31937]/30">
-            <i class="fas fa-users text-4xl text-[#E31937] mb-6"></i>
-            <h2 class="text-white text-3xl font-bold mb-4">生态规模</h2>
-            <div class="space-y-4">
-                <div>
-                    <p class="text-[#E31937] text-2xl font-bold">13.43亿</p>
-                    <p class="text-gray-400">微信月活</p>
-                </div>
-                <div>
-                    <p class="text-[#E31937] text-2xl font-bold">2.48亿</p>
-                    <p class="text-gray-400">付费用户</p>
-                </div>
-            </div>
-        </motion.div>
+  <!-- Bento Grid布局 -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+    <!-- 卡片1 -->
+    <div class="bg-gray-800 p-6 rounded-md"
+      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.5 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}>
+      <h2 class="text-2xl font-bold highlight">核心数据1</h2>
+      <p class="text-sm text-gray-400">这是关于核心数据1的辅助说明。</p>
+      <p class="text-4xl font-bold highlight">12345</p>
     </div>
-</div>
+    <!-- 卡片2 -->
+    <div class="bg-gray-800 p-6 rounded-md"
+      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.5 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}>
+      <h2 class="text-2xl font-bold highlight">核心数据2</h2>
+      <p class="text-sm text-gray-400">这是关于核心数据2的辅助说明。</p>
+      <p class="text-4xl font-bold highlight">67890</p>
+    </div>
+    <!-- 卡片3 -->
+    <div class="bg-gray-800 p-6 rounded-md"
+      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.5 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}>
+      <h2 class="text-2xl font-bold highlight">核心数据3</h2>
+      <p class="text-sm text-gray-400">这是关于核心数据3的辅助说明。</p>
+      <p class="text-4xl font-bold highlight">54321</p>
+    </div>
+  </div>
 
-<script>
-    // 初始化Framer Motion
+  <script>
     const { motion } = window.framerMotion;
-    
-    // 自动为所有motion组件添加滚动动画
-    document.querySelectorAll('motion-div').forEach(el => {
-        Object.assign(el.style, {
-            opacity: 0,
-            transform: 'translateY(50px)'
-        });
+
+    // 将所有需要动效的元素转换为motion元素
+    const elements = document.querySelectorAll('[animate]');
+    elements.forEach((element) => {
+      const animate = JSON.parse(element.getAttribute('animate'));
+      const initial = JSON.parse(element.getAttribute('initial'));
+      const transition = JSON.parse(element.getAttribute('transition'));
+      const whileInView = JSON.parse(element.getAttribute('whileInView'));
+      const viewport = JSON.parse(element.getAttribute('viewport'));
+
+      const motionElement = motion(element.tagName)({
+        animate,
+        initial,
+        transition,
+        whileInView,
+        viewport
+      });
+
+      element.parentNode.replaceChild(motionElement, element);
     });
-</script>
+  </script>
 </body>
+
 </html>
