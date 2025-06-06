@@ -1,94 +1,1259 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- TailwindCSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Framer Motion CDN -->
-  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.umd.js"></script>
-  <!-- Font Awesome CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body {
-      background-color: #000000;
-      color: white;
-    }
-
-    .highlight {
-      color: #E31937;
-    }
-  </style>
-  <title>腾讯控股财报可视化报表</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>临床方案审阅系统 - 优化版</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f4ff 100%);
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #1a56db;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #1a56db, #4f7ef7);
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #4b5563;
+            max-width: 800px;
+            margin: 20px auto 0;
+            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            color: #1a56db;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e6f0ff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-title i {
+            font-size: 1.5rem;
+            color: #4f7ef7;
+            background: #e6f0ff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4b5563;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 5px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1a56db 0%, #0e4bbb 100%);
+            color: white;
+            box-shadow: 0 6px 15px rgba(26, 86, 219, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0e4bbb 0%, #1a56db 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 86, 219, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #1a56db;
+            border: 2px solid #dbeafe;
+        }
+        
+        .btn-secondary:hover {
+            background: #f0f7ff;
+            transform: translateY(-3px);
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #d1dbe9;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4f7ef7;
+            box-shadow: 0 0 0 3px rgba(79, 126, 247, 0.2);
+        }
+        
+        .review-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .review-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid #4f7ef7;
+        }
+        
+        .review-item.optimize {
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .review-item.rejected {
+            border-left: 4px solid #ef4444;
+        }
+        
+        .review-item-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1f2937;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .review-item-content {
+            color: #4b5563;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .suggestion {
+            padding: 15px;
+            background: #f0f7ff;
+            border-radius: 10px;
+            color: #1e40af;
+            border-left: 3px solid #3b82f6;
+            margin-top: 10px;
+        }
+        
+        .suggestion.optimize {
+            background: #fffbeb;
+            border-left: 3px solid #f59e0b;
+            color: #92400e;
+        }
+        
+        .suggestion.rejected {
+            background: #fef2f2;
+            border-left: 3px solid #ef4444;
+            color: #b91c1c;
+        }
+        
+        .status {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .status.passed {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+        
+        .status.optimize {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .status.failed {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .history-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .history-item:hover {
+            background: #f0f7ff;
+            transform: translateX(5px);
+        }
+        
+        .history-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .history-meta {
+            display: flex;
+            gap: 20px;
+            color: #6b7280;
+            font-size: 0.95rem;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .summary-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .stat-card:nth-child(1) .stat-value {
+            color: #16a34a;
+        }
+        
+        .stat-card:nth-child(2) .stat-value {
+            color: #d97706;
+        }
+        
+        .stat-card:nth-child(3) .stat-value {
+            color: #dc2626;
+        }
+        
+        .stat-card:nth-child(4) .stat-value {
+            color: #1a56db;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #6b7280;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        .multi-step-progress {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .progress-bar {
+            position: absolute;
+            height: 8px;
+            background: #e5edff;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            z-index: 1;
+            border-radius: 4px;
+        }
+        
+        .progress-fill {
+            position: absolute;
+            height: 8px;
+            background: linear-gradient(90deg, #1a56db 0%, #4f7ef7 100%);
+            top: 50%;
+            left: 0;
+            width: 0%;
+            transform: translateY(-50%);
+            z-index: 2;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 3;
+            position: relative;
+            width: 25%;
+        }
+        
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #dbeafe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #9ca3af;
+            margin-bottom: 15px;
+            transition: all 0.5s ease;
+        }
+        
+        .step.active .step-icon {
+            background: #1a56db;
+            color: white;
+            border-color: #1a56db;
+            box-shadow: 0 5px 15px rgba(26, 86, 219, 0.3);
+        }
+        
+        .step.completed .step-icon {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+        
+        .step-text {
+            font-weight: 600;
+            color: #6b7280;
+            text-align: center;
+            max-width: 150px;
+        }
+        
+        .step.active .step-text {
+            color: #1a56db;
+        }
+        
+        .step.completed .step-text {
+            color: #10b981;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .summary-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid #4f7ef7;
+        }
+        
+        .summary-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .summary-content {
+            color: #4b5563;
+            line-height: 1.7;
+        }
+        
+        .review-categories {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            background: #e5edff;
+            color: #1a56db;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active {
+            background: #1a56db;
+            color: white;
+        }
+        
+        .review-category {
+            display: none;
+        }
+        
+        .review-category.active {
+            display: block;
+        }
+        
+        .progress-details {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+        
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .progress-item:last-child {
+            border-bottom: none;
+        }
+        
+        .progress-status {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .progress-status.pending {
+            background: #e5e7eb;
+            color: #6b7280;
+        }
+        
+        .progress-status.completed {
+            background: #10b981;
+            color: white;
+        }
+        
+        .progress-info {
+            flex: 1;
+        }
+        
+        .progress-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .progress-desc {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+        
+        .review-overview {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f4ff 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .overview-title {
+            font-size: 1.8rem;
+            color: #1a56db;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .overview-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .overview-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .overview-item h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #1a56db;
+        }
+        
+        .overview-item ul {
+            padding-left: 25px;
+        }
+        
+        .overview-item li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .overview-item li:before {
+            content: '•';
+            position: absolute;
+            left: -15px;
+            color: #4f7ef7;
+            font-weight: bold;
+        }
+        
+        .result-summary {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .summary-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .summary-header h2 {
+            font-size: 2rem;
+            color: #1a56db;
+            margin-bottom: 10px;
+        }
+        
+        .summary-header p {
+            color: #6b7280;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .summary-content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .summary-stats-container {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .summary-details {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .recommendation-card {
+            background: #f0f7ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #1a56db;
+        }
+        
+        .recommendation-card h3 {
+            color: #1a56db;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .card-title {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+            
+            .summary-stats {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .step-text {
+                font-size: 0.9rem;
+            }
+            
+            .summary-content {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <!-- 大标题 -->
-  <div class="text-center py-10">
-    <h1 class="text-5xl font-bold highlight">腾讯控股财报可视化报表</h1>
-  </div>
-
-  <!-- Bento Grid布局 -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-    <!-- 卡片1 -->
-    <div class="bg-gray-800 p-6 rounded-md"
-      animate={{ opacity: 1, y: 0 }}
-      initial={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.5 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}>
-      <h2 class="text-2xl font-bold highlight">核心数据1</h2>
-      <p class="text-sm text-gray-400">这是关于核心数据1的辅助说明。</p>
-      <p class="text-4xl font-bold highlight">12345</p>
+    <div class="container">
+        <header>
+            <h1>临床方案审阅系统</h1>
+            <p class="subtitle">本系统提供临床试验方案的智能审阅功能，包含文档上传、方案总结、文档审阅和报告生成全流程，帮助研究人员高效评估方案质量</p>
+        </header>
+        
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-book-medical"></i> 临床方案审阅介绍</h2>
+            <div class="content">
+                <p>临床方案审阅是临床试验准备阶段的关键环节，旨在确保研究方案的科学性、伦理合规性和可操作性。本系统基于ICH-GCP等国际标准，提供全流程自动化审阅服务。</p>
+                
+                <h3 style="margin: 25px 0 15px; color: #1a56db;">审阅流程</h3>
+                <div class="multi-step-progress">
+                    <div class="progress-bar"></div>
+                    <div class="progress-fill" id="progressFill"></div>
+                    
+                    <div class="step active" id="step1">
+                        <div class="step-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <div class="step-text">文档上传</div>
+                    </div>
+                    
+                    <div class="step" id="step2">
+                        <div class="step-icon"><i class="fas fa-file-contract"></i></div>
+                        <div class="step-text">方案总结</div>
+                    </div>
+                    
+                    <div class="step" id="step3">
+                        <div class="step-icon"><i class="fas fa-search"></i></div>
+                        <div class="step-text">文档审阅</div>
+                    </div>
+                    
+                    <div class="step" id="step4">
+                        <div class="step-icon"><i class="fas fa-file-pdf"></i></div>
+                        <div class="step-text">报告生成</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title"><i class="fas fa-cloud-upload-alt"></i> 方案上传与审阅</h2>
+            
+            <div class="input-group">
+                <label for="taskName"><i class="fas fa-tasks"></i> 任务名称</label>
+                <input type="text" id="taskName" placeholder="请输入本次审阅任务名称...">
+            </div>
+            
+            <div class="input-group">
+                <label for="protocolType"><i class="fas fa-file-medical"></i> 方案类型</label>
+                <select id="protocolType">
+                    <option value="">选择方案类型</option>
+                    <option value="phase1">I期临床试验</option>
+                    <option value="phase2">II期临床试验</option>
+                    <option value="phase3">III期临床试验</option>
+                    <option value="phase4">IV期临床试验</option>
+                    <option value="observational">观察性研究</option>
+                    <option value="registry">注册研究</option>
+                </select>
+            </div>
+            
+            <div id="uploadArea" style="border: 2px dashed #d1dbe9; border-radius: 16px; padding: 40px; text-align: center; background: #f8fafc; margin-bottom: 25px; transition: all 0.3s ease;">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 64px; color: #a0b9f0; margin-bottom: 20px;"></i>
+                <h3 style="color: #4b5563; margin-bottom: 15px;">拖放临床方案文件到此处或点击上传</h3>
+                <p style="color: #6b7280; margin-bottom: 25px; max-width: 400px; margin: 0 auto;">支持PDF、DOCX、DOC格式，文件大小不超过20MB</p>
+                <button class="btn btn-primary" id="uploadBtn">
+                    <i class="fas fa-upload"></i> 选择文件
+                </button>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="startReview" style="display: none;">
+                    <i class="fas fa-play-circle"></i> 开始审阅
+                </button>
+            </div>
+        </div>
+        
+        <div class="card" id="progressCard" style="display: none;">
+            <h2 class="card-title"><i class="fas fa-tasks"></i> 审阅进度</h2>
+            
+            <div class="multi-step-progress">
+                <div class="progress-bar"></div>
+                <div class="progress-fill" id="activeProgressFill"></div>
+                
+                <div class="step completed" id="activeStep1">
+                    <div class="step-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="step-text">文档上传</div>
+                </div>
+                
+                <div class="step active" id="activeStep2">
+                    <div class="step-icon"><i class="fas fa-file-contract"></i></div>
+                    <div class="step-text">方案总结</div>
+                </div>
+                
+                <div class="step" id="activeStep3">
+                    <div class="step-icon"><i class="fas fa-search"></i></div>
+                    <div class="step-text">文档审阅</div>
+                </div>
+                
+                <div class="step" id="activeStep4">
+                    <div class="step-icon"><i class="fas fa-file-pdf"></i></div>
+                    <div class="step-text">报告生成</div>
+                </div>
+            </div>
+            
+            <div class="progress-details">
+                <div class="progress-item">
+                    <div class="progress-status completed"><i class="fas fa-check"></i></div>
+                    <div class="progress-info">
+                        <div class="progress-title">文档上传完成</div>
+                        <div class="progress-desc">Protocol_Clinical_Trial_v4.2.pdf (3.8MB)</div>
+                    </div>
+                    <div class="progress-time">10:25:31</div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-status completed"><i class="fas fa-check"></i></div>
+                    <div class="progress-info">
+                        <div class="progress-title">文件格式验证</div>
+                        <div class="progress-desc">PDF文档验证通过，无加密保护</div>
+                    </div>
+                    <div class="progress-time">10:25:45</div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-status completed"><i class="fas fa-check"></i></div>
+                    <div class="progress-info">
+                        <div class="progress-title">文档解析中</div>
+                        <div class="progress-desc">已识别12个主要章节和78个关键要素</div>
+                    </div>
+                    <div class="progress-time">10:26:20</div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-status pending"><i class="fas fa-spinner fa-spin"></i></div>
+                    <div class="progress-info">
+                        <div class="progress-title">方案总结生成</div>
+                        <div class="progress-desc">正在提取关键信息并生成方案摘要</div>
+                    </div>
+                    <div class="progress-time">进行中</div>
+                </div>
+                
+                <div class="progress-item">
+                    <div class="progress-status pending"><i class="far fa-clock"></i></div>
+                    <div class="progress-info">
+                        <div class="progress-title">文档审阅准备</div>
+                        <div class="progress-desc">等待方案总结完成后开始</div>
+                    </div>
+                    <div class="progress-time">等待中</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" id="summaryCard" style="display: none;">
+            <h2 class="card-title"><i class="fas fa-file-contract"></i> 方案总结</h2>
+            
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-title"><i class="fas fa-heading"></i> 方案标题</div>
+                    <div class="summary-content">一项评估XX药物在晚期非小细胞肺癌患者中疗效和安全性的多中心、随机、双盲、安慰剂对照III期研究</div>
+                </div>
+                
+                <div class="summary-item">
+                    <div class="summary-title"><i class="fas fa-bullseye"></i> 研究目的</div>
+                    <div class="summary-content">主要目的：评估XX药物联合标准化疗对比安慰剂联合标准化疗的无进展生存期(PFS)<br>次要目的：评估总生存期(OS)、客观缓解率(ORR)和安全性</div>
+                </div>
+                
+                <div class="summary-item">
+                    <div class="summary-title"><i class="fas fa-users"></i> 目标人群</div>
+                    <div class="summary-content">组织学确诊的晚期非小细胞肺癌患者，年龄≥18岁，ECOG评分0-1，未接受过系统性治疗</div>
+                </div>
+                
+                <div class="summary-item">
+                    <div class="summary-title"><i class="fas fa-syringe"></i> 治疗方案</div>
+                    <div class="summary-content">实验组：XX药物 200mg IV Q3W + 标准化疗<br>对照组：安慰剂 IV Q3W + 标准化疗<br>治疗周期：直至疾病进展或不可耐受毒性</div>
+                </div>
+                
+                <div class="summary-item">
+                    <div class="summary-title"><i class="fas fa-chart-line"></i> 主要终点</div>
+                    <div class="summary-content">无进展生存期(PFS) - 由独立评审委员会评估</div>
+                </div>
+                
+                <div class="summary-item">
+                    <div class="summary-title"><i class="fas fa-clipboard-check"></i> 关键时间点</div>
+                    <div class="summary-content">研究启动：2024年1月<br>首例患者入组：2024年3月<br>末例患者入组：2025年6月<br>研究完成：2026年12月</div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="continueReview">
+                    <i class="fas fa-forward"></i> 继续审阅流程
+                </button>
+            </div>
+        </div>
+        
+        <!-- 新增：审阅要点概述 -->
+        <div class="review-overview">
+            <h2 class="overview-title">临床方案审阅要点概述</h2>
+            <div class="overview-content">
+                <div class="overview-item">
+                    <h3><i class="fas fa-check-circle" style="color: #16a34a;"></i> 满足要求的要点</h3>
+                    <ul>
+                        <li>研究目的与背景描述清晰完整</li>
+                        <li>研究设计科学合理（随机、双盲、对照）</li>
+                        <li>入选/排除标准明确合理</li>
+                        <li>统计分析计划完善</li>
+                        <li>伦理审批流程完整</li>
+                        <li>知情同意书规范</li>
+                    </ul>
+                </div>
+                
+                <div class="overview-item">
+                    <h3><i class="fas fa-exclamation-triangle" style="color: #d97706;"></i> 待优化的要点</h3>
+                    <ul>
+                        <li>样本量计算依据需补充详细参数</li>
+                        <li>数据管理计划需更详细描述</li>
+                        <li>亚组分析计划不够明确</li>
+                        <li>方案偏离管理流程需完善</li>
+                        <li>中心实验室流程描述不足</li>
+                    </ul>
+                </div>
+                
+                <div class="overview-item">
+                    <h3><i class="fas fa-times-circle" style="color: #dc2626;"></i> 不满足的要点</h3>
+                    <ul>
+                        <li>未明确SAE报告时限和流程</li>
+                        <li>弱势群体保护措施缺失</li>
+                        <li>未包含数据监查委员会(DMC)章程</li>
+                        <li>研究药物管理流程不完整</li>
+                        <li>缺少方案修订历史记录</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新增：审阅结果总结 -->
+        <div class="result-summary">
+            <div class="summary-header">
+                <h2>临床方案审阅结果总结</h2>
+                <p>基于ICH-GCP标准及行业最佳实践的全面审查报告</p>
+            </div>
+            
+            <div class="summary-content">
+                <div class="summary-stats-container">
+                    <div class="summary-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">86%</div>
+                            <div class="stat-label">整体完整性</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">18</div>
+                            <div class="stat-label">满足要求</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">6</div>
+                            <div class="stat-label">待优化</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">不满足</div>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-card">
+                        <h3><i class="fas fa-lightbulb"></i> 总体建议</h3>
+                        <p>方案整体设计科学合理，主要结构完整，但在安全性报告流程和数据管理方面存在明显不足。建议优先完善SAE报告流程和弱势群体保护措施，补充数据管理计划细节，并建立DMC章程。</p>
+                    </div>
+                </div>
+                
+                <div class="summary-details">
+                    <h3 style="color: #1a56db; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-list-check"></i> 关键审阅结果
+                    </h3>
+                    
+                    <div class="review-section">
+                        <div class="review-item passed">
+                            <div class="review-item-title">
+                                <span>研究设计</span>
+                                <span class="status passed">满足要求</span>
+                            </div>
+                            <div class="review-item-content">采用随机、双盲、安慰剂对照设计，符合科学规范，对照组设置合理。</div>
+                        </div>
+                        
+                        <div class="review-item optimize">
+                            <div class="review-item-title">
+                                <span>样本量计算</span>
+                                <span class="status optimize">待优化</span>
+                            </div>
+                            <div class="review-item-content">提供了样本量计算但未详细说明统计假设参数。</div>
+                            <div class="suggestion optimize">
+                                <strong>优化建议：</strong> 补充样本量计算依据，包括主要评价指标的预期效应量、I类错误概率(α)、II类错误概率(β)等参数，并引用相关文献支持。
+                            </div>
+                        </div>
+                        
+                        <div class="review-item failed">
+                            <div class="review-item-title">
+                                <span>不良事件报告</span>
+                                <span class="status failed">不满足</span>
+                            </div>
+                            <div class="review-item-content">未明确SAE报告时限和流程，缺少伦理委员会报告要求。</div>
+                            <div class="suggestion rejected">
+                                <strong>修改建议：</strong> 补充严重不良事件(SAE)的报告流程，明确研究者向申办方和伦理委员会的报告时限（建议24小时内），并说明后续跟踪报告要求。
+                            </div>
+                        </div>
+                        
+                        <div class="review-item passed">
+                            <div class="review-item-title">
+                                <span>统计分析计划</span>
+                                <span class="status passed">满足要求</span>
+                            </div>
+                            <div class="review-item-content">统计分析方法恰当，包含主要和次要终点分析策略，缺失数据处理方法合理。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary">
+                    <i class="fas fa-redo-alt"></i> 重新上传方案
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-download"></i> 导出完整报告
+                </button>
+                <button class="btn btn-secondary">
+                    <i class="fas fa-plus-circle"></i> 新建审阅任务
+                </button>
+            </div>
+        </div>
+        
+        <div class="card" id="historyCard">
+            <h2 class="card-title"><i class="fas fa-history"></i> 审阅历史记录</h2>
+            
+            <div class="history-item">
+                <div class="history-title">
+                    <i class="fas fa-lungs-virus" style="color: #ef4444;"></i> 
+                    肿瘤免疫治疗III期试验方案
+                </div>
+                <div class="history-meta">
+                    <span><i class="far fa-calendar"></i> 2023-10-28</span>
+                    <span><i class="far fa-file-pdf"></i> Protocol_Oncology_2023_v2.pdf</span>
+                    <span><i class="fas fa-user"></i> 张研究员</span>
+                    <span><i class="fas fa-chart-pie"></i> 完整性评分: 92%</span>
+                </div>
+            </div>
+            
+            <div class="history-item">
+                <div class="history-title">
+                    <i class="fas fa-vial" style="color: #10b981;"></i> 
+                    糖尿病新药II期临床试验
+                </div>
+                <div class="history-meta">
+                    <span><i class="far fa-calendar"></i> 2023-10-20</span>
+                    <span><i class="far fa-file-word"></i> Diabetes_PhaseII_Final.docx</span>
+                    <span><i class="fas fa-user"></i> 李博士</span>
+                    <span><i class="fas fa-chart-pie"></i> 完整性评分: 86%</span>
+                </div>
+            </div>
+            
+            <div class="history-item">
+                <div class="history-title">
+                    <i class="fas fa-heart-pulse" style="color: #ef4444;"></i> 
+                    心血管器械上市后研究
+                </div>
+                <div class="history-meta">
+                    <span><i class="far fa-calendar"></i> 2023-10-12</span>
+                    <span><i class="far fa-file-pdf"></i> CV_Device_PMS_Protocol.pdf</span>
+                    <span><i class="fas fa-user"></i> 王主任</span>
+                    <span><i class="fas fa-chart-pie"></i> 完整性评分: 78%</span>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- 卡片2 -->
-    <div class="bg-gray-800 p-6 rounded-md"
-      animate={{ opacity: 1, y: 0 }}
-      initial={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.5 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}>
-      <h2 class="text-2xl font-bold highlight">核心数据2</h2>
-      <p class="text-sm text-gray-400">这是关于核心数据2的辅助说明。</p>
-      <p class="text-4xl font-bold highlight">67890</p>
-    </div>
-    <!-- 卡片3 -->
-    <div class="bg-gray-800 p-6 rounded-md"
-      animate={{ opacity: 1, y: 0 }}
-      initial={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.5 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}>
-      <h2 class="text-2xl font-bold highlight">核心数据3</h2>
-      <p class="text-sm text-gray-400">这是关于核心数据3的辅助说明。</p>
-      <p class="text-4xl font-bold highlight">54321</p>
-    </div>
-  </div>
 
-  <script>
-    const { motion } = window.framerMotion;
-
-    // 将所有需要动效的元素转换为motion元素
-    const elements = document.querySelectorAll('[animate]');
-    elements.forEach((element) => {
-      const animate = JSON.parse(element.getAttribute('animate'));
-      const initial = JSON.parse(element.getAttribute('initial'));
-      const transition = JSON.parse(element.getAttribute('transition'));
-      const whileInView = JSON.parse(element.getAttribute('whileInView'));
-      const viewport = JSON.parse(element.getAttribute('viewport'));
-
-      const motionElement = motion(element.tagName)({
-        animate,
-        initial,
-        transition,
-        whileInView,
-        viewport
-      });
-
-      element.parentNode.replaceChild(motionElement, element);
-    });
-  </script>
+    <script>
+        // DOM元素
+        const uploadBtn = document.getElementById('uploadBtn');
+        const startReview = document.getElementById('startReview');
+        const continueReview = document.getElementById('continueReview');
+        const uploadArea = document.getElementById('uploadArea');
+        const progressCard = document.getElementById('progressCard');
+        const summaryCard = document.getElementById('summaryCard');
+        const progressFill = document.getElementById('activeProgressFill');
+        
+        // 文件上传处理
+        uploadBtn.addEventListener('click', function() {
+            // 模拟文件选择
+            uploadArea.innerHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div class="progress-container" style="width: 100%; max-width: 400px; margin-bottom: 25px;">
+                        <div class="progress-bar" style="width: 0%;" id="uploadProgressBar"></div>
+                        <div class="progress-text" id="uploadProgressText">0%</div>
+                    </div>
+                    <i class="fas fa-file-medical-alt" style="font-size: 64px; color: #4f7ef7; margin-bottom: 20px;"></i>
+                    <h3 style="color: #1a56db; margin-bottom: 10px;">临床方案上传中</h3>
+                    <p style="color: #6b7280;">Protocol_Clinical_Trial_v4.2.pdf</p>
+                </div>
+            `;
+            
+            // 模拟上传进度
+            let uploadProgress = 0;
+            const uploadInterval = setInterval(() => {
+                uploadProgress += 5;
+                document.getElementById('uploadProgressBar').style.width = `${uploadProgress}%`;
+                document.getElementById('uploadProgressText').textContent = `${uploadProgress}%`;
+                
+                if (uploadProgress >= 100) {
+                    clearInterval(uploadInterval);
+                    setTimeout(() => {
+                        uploadArea.innerHTML = `
+                            <i class="fas fa-check-circle" style="font-size: 64px; color: #10b981; margin-bottom: 20px;"></i>
+                            <h3 style="color: #1a56db; margin-bottom: 10px;">临床方案上传成功</h3>
+                            <p style="color: #6b7280; margin-bottom: 15px;">Protocol_Clinical_Trial_v4.2.pdf</p>
+                            <p style="color: #6b7280;"><i class="fas fa-file-alt"></i> 文档验证通过，准备开始审阅</p>
+                        `;
+                        startReview.style.display = 'inline-flex';
+                    }, 500);
+                }
+            }, 100);
+        });
+        
+        // 开始审阅
+        startReview.addEventListener('click', function() {
+            startReview.style.display = 'none';
+            progressCard.style.display = 'block';
+            
+            // 滚动到进度区域
+            progressCard.scrollIntoView({ behavior: 'smooth' });
+            
+            // 模拟进度
+            let progress = 25; // 从25%开始（文档上传已完成）
+            progressFill.style.width = `${progress}%`;
+            
+            // 模拟方案总结过程
+            setTimeout(() => {
+                document.querySelectorAll('.progress-item')[3].innerHTML = `
+                    <div class="progress-status completed"><i class="fas fa-check"></i></div>
+                    <div class="progress-info">
+                        <div class="progress-title">方案总结完成</div>
+                        <div class="progress-desc">已提取关键信息并生成方案摘要</div>
+                    </div>
+                    <div class="progress-time">10:27:50</div>
+                `;
+                
+                document.getElementById('activeStep2').classList.remove('active');
+                document.getElementById('activeStep2').classList.add('completed');
+                document.getElementById('activeStep3').classList.add('active');
+                
+                progress = 50;
+                progressFill.style.width = `${progress}%`;
+                
+                // 添加新的进度项
+                const progressDetails = document.querySelector('.progress-details');
+                progressDetails.innerHTML += `
+                    <div class="progress-item">
+                        <div class="progress-status pending"><i class="fas fa-spinner fa-spin"></i></div>
+                        <div class="progress-info">
+                            <div class="progress-title">ICH-GCP合规性审查</div>
+                            <div class="progress-desc">检查方案是否符合国际标准</div>
+                        </div>
+                        <div class="progress-time">进行中</div>
+                    </div>
+                `;
+                
+                // 模拟文档审阅
+                setTimeout(() => {
+                    document.querySelectorAll('.progress-item')[4].innerHTML = `
+                        <div class="progress-status completed"><i class="fas fa-check"></i></div>
+                        <div class="progress-info">
+                            <div class="progress-title">ICH-GCP合规性审查</div>
+                            <div class="progress-desc">方案符合ICH-GCP核心要求</div>
+                        </div>
+                        <div class="progress-time">10:29:15</div>
+                    `;
+                    
+                    progressDetails.innerHTML += `
+                        <div class="progress-item">
+                            <div class="progress-status pending"><i class="fas fa-spinner fa-spin"></i></div>
+                            <div class="progress-info">
+                                <div class="progress-title">科学合理性评估</div>
+                                <div class="progress-desc">评估研究设计的科学依据</div>
+                            </div>
+                            <div class="progress-time">进行中</div>
+                        </div>
+                    `;
+                    
+                    setTimeout(() => {
+                        document.querySelectorAll('.progress-item')[5].innerHTML = `
+                            <div class="progress-status completed"><i class="fas fa-check"></i></div>
+                            <div class="progress-info">
+                                <div class="progress-title">科学合理性评估</div>
+                                <div class="progress-desc">研究设计合理，终点选择恰当</div>
+                            </div>
+                            <div class="progress-time">10:31:40</div>
+                        `;
+                        
+                        document.getElementById('activeStep3').classList.remove('active');
+                        document.getElementById('activeStep3').classList.add('completed');
+                        document.getElementById('activeStep4').classList.add('active');
+                        
+                        progress = 75;
+                        progressFill.style.width = `${progress}%`;
+                        
+                        progressDetails.innerHTML += `
+                            <div class="progress-item">
+                                <div class="progress-status pending"><i class="fas fa-spinner fa-spin"></i></div>
+                                <div class="progress-info">
+                                    <div class="progress-title">报告生成</div>
+                                    <div class="progress-desc">整合审阅结果生成最终报告</div>
+                                </div>
+                                <div class="progress-time">进行中</div>
+                            </div>
+                        `;
+                        
+                        // 完成审阅
+                        setTimeout(() => {
+                            document.querySelectorAll('.progress-item')[6].innerHTML = `
+                                <div class="progress-status completed"><i class="fas fa-check"></i></div>
+                                <div class="progress-info">
+                                    <div class="progress-title">报告生成完成</div>
+                                    <div class="progress-desc">PDF报告已准备就绪</div>
+                                </div>
+                                <div class="progress-time">10:33:20</div>
+                            `;
+                            
+                            progress = 100;
+                            progressFill.style.width = `${progress}%`;
+                            
+                            // 显示方案总结
+                            setTimeout(() => {
+                                summaryCard.style.display = 'block';
+                                summaryCard.scrollIntoView({ behavior: 'smooth' });
+                            }, 1000);
+                        }, 2000);
+                    }, 2000);
+                }, 2000);
+            }, 2000);
+        });
+        
+        // 继续审阅流程
+        continueReview.addEventListener('click', function() {
+            summaryCard.style.display = 'none';
+            
+            // 滚动到审阅结果部分
+            document.querySelector('.result-summary').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start'
+            });
+        });
+        
+        // 添加Font Awesome图标
+        const fontAwesome = document.createElement('link');
+        fontAwesome.rel = 'stylesheet';
+        fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
+        document.head.appendChild(fontAwesome);
+    </script>
 </body>
-
 </html>
